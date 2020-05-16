@@ -34,4 +34,6 @@ function getPostalCustom()
     return nil  -- remove this line!
 end
 
-Config.RegisterPluginConfig(config.pluginName, config)
+-- UNCOMMENT BELOW TO ACTIVATE PLUGIN
+
+--Config.RegisterPluginConfig(config.pluginName, config)
