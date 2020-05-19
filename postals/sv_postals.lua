@@ -8,24 +8,30 @@
 
 -- Toggles Postal Sender
 
-PostalsCache = {}
+local pluginConfig = Config.GetPluginConfig("postals")
 
-RegisterNetEvent("getShouldSendPostal")
-AddEventHandler("getShouldSendPostal", function()
-    TriggerClientEvent("getShouldSendPostalResponse", source, prefixPostal)
-end)
+if pluginConfig.enabled then
 
-RegisterNetEvent("cadClientPostal")
-AddEventHandler("cadClientPostal", function(postal)
-    PostalsCache[source] = postal
-end)
+    PostalsCache = {}
 
-AddEventHandler("playerDropped", function(player)
-    PostalsCache[player] = nil
-end)
+    RegisterNetEvent("getShouldSendPostal")
+    AddEventHandler("getShouldSendPostal", function()
+        TriggerClientEvent("getShouldSendPostalResponse", source, prefixPostal)
+    end)
 
-function getNearestPostal(player)
-    return PostalsCache[player]
+    RegisterNetEvent("cadClientPostal")
+    AddEventHandler("cadClientPostal", function(postal)
+        PostalsCache[source] = postal
+    end)
+
+    AddEventHandler("playerDropped", function(player)
+        PostalsCache[player] = nil
+    end)
+
+    function getNearestPostal(player)
+        return PostalsCache[player]
+    end
+
+    exports('cadGetNearestPostal', getNearestPostal)
+
 end
-
-exports('cadGetNearestPostal', getNearestPostal)
