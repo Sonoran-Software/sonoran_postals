@@ -6,8 +6,8 @@
     Put all needed configuration in this file.
 ]]
 local config = {
+    enabled = false,
     pluginName = "postals", -- name your plugin here
-    pluginVersion = "1.0", -- version of your plugin
     pluginAuthor = "SonoranCAD", -- author
     requiresPlugins = {"locations"}, -- required plugins for this plugin to work, separated by commas
 
@@ -34,6 +34,6 @@ function getPostalCustom()
     return nil  -- remove this line!
 end
 
--- UNCOMMENT BELOW TO ACTIVATE PLUGIN
-
---Config.RegisterPluginConfig(config.pluginName, config)
+if config.enabled then
+    Config.RegisterPluginConfig(config.pluginName, config)
+end
