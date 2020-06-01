@@ -9,6 +9,8 @@
 
 local pluginConfig = Config.GetPluginConfig("postals")
 
+local lastPostal = nil
+
 if pluginConfig.enabled then
 
     -- Don't touch this!
@@ -29,12 +31,13 @@ if pluginConfig.enabled then
     end
     local function sendPostalData()
         local postal = getNearestPostal()
-        if postal ~= nil then
+        if postal ~= nil and postal ~= lastPostal then
             TriggerServerEvent("cadClientPostal", postal)
+            lastPostal = postal
         end
     end
     CreateThread(function()
-        while not NetworkIsPlayerActive(PlayerId()) do
+        while not NetworkIsPlayerActive(PlayerId()) or pluginConfig.sendTimer == nil do
             Wait(10)
         end
         TriggerServerEvent("getShouldSendPostal")
@@ -48,6 +51,7 @@ if pluginConfig.enabled then
 
     RegisterNetEvent("getShouldSendPostalResponse")
     AddEventHandler("getShouldSendPostalResponse", function(toggle)
+        print("got "..tostring(toggle))
         pluginConfig.shouldSendPostalData = toggle
     end)
 

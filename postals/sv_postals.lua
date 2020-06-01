@@ -9,14 +9,15 @@
 -- Toggles Postal Sender
 
 local pluginConfig = Config.GetPluginConfig("postals")
+local locationsConfig = Config.GetPluginConfig("locations")
 
-if pluginConfig.enabled then
+if pluginConfig.enabled and locationsConfig ~= nil then
 
     PostalsCache = {}
 
     RegisterNetEvent("getShouldSendPostal")
     AddEventHandler("getShouldSendPostal", function()
-        TriggerClientEvent("getShouldSendPostalResponse", source, prefixPostal)
+        TriggerClientEvent("getShouldSendPostalResponse", source, locationsConfig.prefixPostal)
     end)
 
     RegisterNetEvent("cadClientPostal")
@@ -34,4 +35,6 @@ if pluginConfig.enabled then
 
     exports('cadGetNearestPostal', getNearestPostal)
 
+elseif locationsConfig == nil then
+    errorLog("ERROR: Postals plugin is loaded, but required locations plugin is not. This plugin will not function correctly!")
 end
