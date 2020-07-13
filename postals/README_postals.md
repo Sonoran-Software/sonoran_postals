@@ -5,7 +5,7 @@
 If you're using the [nearest postals script publicly available](https://forum.cfx.re/t/release-nearest-postal-script/293511), you must add the following code to the bottom of `cl.lua`:
 
 ```lua
-exports('getPostal', function() return postals[nearest.i].code end)
+exports('getPostal', function() if nearest ~= nil then return postals[nearest.i].code else return nil end end)
 ```
 
 After doing so, set the configuration option to "nearestpostal".
