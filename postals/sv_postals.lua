@@ -35,6 +35,10 @@ if pluginConfig.enabled and locationsConfig ~= nil then
 
     exports('cadGetNearestPostal', getNearestPostal)
 
+    if pluginConfig.getPostalMethod == "custom" then
+        getPostalCustom()
+    end
+
 elseif locationsConfig == nil then
     errorLog("ERROR: Postals plugin is loaded, but required locations plugin is not. This plugin will not function correctly!")
 end

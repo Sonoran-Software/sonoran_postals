@@ -31,7 +31,7 @@ local config = {
 
 -- edit the below function if specifying "custom" postal handler above
 function getPostalCustom()
-    return nil  -- remove this line!
+    assert(false, "You chose custom for getPostalMethod but wrote no code. This is wrong.") -- remove this line!
 end
 
 if config.enabled then
