@@ -16,17 +16,11 @@ if pluginConfig.enabled then
     -- Don't touch this!
 
     function getNearestPostal()
-        if pluginConfig.getPostalMethod == "nearestpostal" then
-            if exports[pluginConfig.nearestPostalResourceName] ~= nil then
-                return exports[pluginConfig.nearestPostalResourceName]:getPostal()
-            else
-                assert(false, "Required postal resource is not loaded. Cannot use postals plugin.")
-            end
-        elseif pluginConfig.getPostalMethod == "custom" then
-            return getPostalCustom()
+        if exports[pluginConfig.nearestPostalResourceName] ~= nil then
+            local p = exports[pluginConfig.nearestPostalResourceName]:getPostal()
+            return p
         else
-            errorLog("MISCONFIGURATION: postals plugin is misconfigured. Please check it.")
-            assert(false, "Postal configuration is not correct.")
+            assert(false, "Required postal resource is not loaded. Cannot use postals plugin.")
         end
     end
     local function sendPostalData()
