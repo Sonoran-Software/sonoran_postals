@@ -14,13 +14,20 @@ local locationsConfig = Config.GetPluginConfig("locations")
 if pluginConfig.enabled and locationsConfig ~= nil then
 
     local state = GetResourceState(pluginConfig.nearestPostalResourceName)
+    local shouldStop = false
     if  state ~= "started" then
-        pluginConfig.enabled = false
         if state == "missing" then
             errorLog(("[postals] The configured postals resource (%s) does not exist. Please check the name."):format(pluginConfig.nearestPostalResourceName))
+            shouldStop = true
+        elseif state == "stopped" then
+            warnLog(("[postals] The postals resource (%s) is not started. Please ensure it's started before clients conntect. This is only a warning. State: %s"):format(pluginConfig.nearestPostalResourceName, state))
         else
-            errorLog(("[postals] ERROR: The postals resource (%s) is not started. Please ensure it's started. State: %s"):format(pluginConfig.nearestPostalResourceName, state))
+            errorLog(("[postals] The configured postals resource (%s) is in a bad state (%s). Please check it."):format(pluginConfig.nearestPostalResourceName, state))
+            shouldStop = true
         end
+    end
+    if shouldStop then
+        pluginConfig.enabled = false
         errorLog("Force disabling plugin to prevent client errors.")
         return
     end
