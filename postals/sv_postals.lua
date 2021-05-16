@@ -8,7 +8,7 @@
 
 -- Toggles Postal Sender
 
-CreateThread(Config.LoadPlugin("postals", function(pluginConfig)
+CreateThread(function() Config.LoadPlugin("postals", function(pluginConfig)
 local locationsConfig = Config.GetPluginConfig("locations")
 
 if pluginConfig.enabled and locationsConfig ~= nil then

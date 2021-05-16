@@ -9,7 +9,6 @@ local config = {
     enabled = false,
     pluginName = "postals", -- name your plugin here
     pluginAuthor = "SonoranCAD", -- author
-    requiresPlugins = {"locations"}, -- required plugins for this plugin to work, separated by commas
 
     -- put your configuration options below
     sendTimer = 950, -- how often to send postal to client
