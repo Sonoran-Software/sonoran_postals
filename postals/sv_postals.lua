@@ -8,7 +8,7 @@
 
 -- Toggles Postal Sender
 
-local pluginConfig = Config.GetPluginConfig("postals")
+CreateThread(Config.LoadPlugin("postals", function(pluginConfig)
 local locationsConfig = Config.GetPluginConfig("locations")
 
 if pluginConfig.enabled and locationsConfig ~= nil then
@@ -28,6 +28,7 @@ if pluginConfig.enabled and locationsConfig ~= nil then
     end
     if shouldStop then
         pluginConfig.enabled = false
+        pluginConfig.disableReason = "postal resource incorrect"
         errorLog("Force disabling plugin to prevent client errors.")
         return
     end
@@ -56,4 +57,8 @@ if pluginConfig.enabled and locationsConfig ~= nil then
 
 elseif locationsConfig == nil then
     errorLog("ERROR: Postals plugin is loaded, but required locations plugin is not. This plugin will not function correctly!")
+    pluginConfig.enabled = false
+    pluginConfig.disableReason = "locations plugin missing"
 end
+
+end) end)
