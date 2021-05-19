@@ -9,7 +9,7 @@ local config = {
     enabled = false,
     pluginName = "postals", -- name your plugin here
     pluginAuthor = "SonoranCAD", -- author
-
+    configVersion = "1.2.0",
     -- put your configuration options below
     sendTimer = 950, -- how often to send postal to client
     shouldSendPostalData = true, -- toggles this plugin on/off
