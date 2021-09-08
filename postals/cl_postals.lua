@@ -7,21 +7,31 @@
 ]]
 
 
-local pluginConfig = Config.GetPluginConfig("postals")
+CreateThread(function() Config.LoadPlugin("postals", function(pluginConfig)
 
 local lastPostal = nil
+local eventPostal = nil
 
 if pluginConfig.enabled then
 
     -- Don't touch this!
 
     function getNearestPostal()
-        if exports[pluginConfig.nearestPostalResourceName] ~= nil then
-            local p = exports[pluginConfig.nearestPostalResourceName]:getPostal()
-            return p
+        if pluginConfig.mode and pluginConfig.mode == "event" then
+            return eventPostal
         else
-            assert(false, "Required postal resource is not loaded. Cannot use postals plugin.")
+            if exports[pluginConfig.nearestPostalResourceName] ~= nil then
+                local p = exports[pluginConfig.nearestPostalResourceName]:getPostal()
+                return p
+            else
+                assert(false, "Required postal resource is not loaded. Cannot use postals plugin.")
+            end
         end
+    end
+    if pluginConfig.mode and pluginConfig.nearestPostalEvent and pluginConfig.mode == "event" then
+        AddEventHandler(pluginConfig.nearestPostalEvent, function(postal)
+            eventPostal = postal
+        end)
     end
     local function sendPostalData()
         local postal = getNearestPostal()
@@ -50,3 +60,5 @@ if pluginConfig.enabled then
     end)
 
 end
+
+end) end)

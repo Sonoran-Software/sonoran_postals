@@ -14,7 +14,10 @@ local config = {
     sendTimer = 950, -- how often to send postal to client
     shouldSendPostalData = true, -- toggles this plugin on/off
     
-    nearestPostalResourceName = "nearest-postal" -- if using nearestpostal, specify the name of the resource here if you changed it
+    nearestPostalResourceName = "nearest-postal", -- if using nearestpostal, specify the name of the resource here if you changed it
+    -- optionally use an event fired by another resource, set mode to "event" and add the name of the event below
+    mode = "resource",
+    nearestPostalEvent = ""
 }
 
 
