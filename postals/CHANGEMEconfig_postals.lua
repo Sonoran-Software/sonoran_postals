@@ -9,7 +9,7 @@ local config = {
     enabled = false,
     pluginName = "postals", -- name your plugin here
     pluginAuthor = "SonoranCAD", -- author
-    configVersion = "1.2.0",
+    configVersion = "1.2.1",
     -- put your configuration options below
     sendTimer = 950, -- how often to send postal to client
     shouldSendPostalData = true, -- toggles this plugin on/off
@@ -17,7 +17,10 @@ local config = {
     nearestPostalResourceName = "nearest-postal", -- if using nearestpostal, specify the name of the resource here if you changed it
     -- optionally use an event fired by another resource, set mode to "event" and add the name of the event below
     mode = "resource",
-    nearestPostalEvent = ""
+    nearestPostalEvent = "",
+
+    -- if not using nearest-postal, place a json file containing the postals in the plugin's folder and specify a name below
+    customPostalCodesFile = ""
 }
 
 

@@ -55,6 +55,23 @@ if pluginConfig.enabled and locationsConfig ~= nil then
 
     exports('cadGetNearestPostal', getNearestPostal)
 
+    registerApiType("SET_POSTALS", "general")
+
+    CreateThread(function()
+        Wait(1000)
+        local postalFile = nil
+        if pluginConfig.useCustomPostalCodeFile ~= "" and pluginConfig.useCustomPostalCodeFile ~= nil then
+            postalFile = LoadResourceFile(GetCurrentResourceName(), ("plugins/postals/%s"):format(pluginConfig.useCustomPostalCodeFile))
+        else
+            postalFile = LoadResourceFile(pluginConfig.nearestPostalResourceName, GetResourceMetadata(pluginConfig.nearestPostalResourceName, "postal_file"))
+        end
+        if postalFile == nil then
+            errorLog("Failed to open postals file for reading.")
+        else
+            performApiRequest(postalFile, "SET_POSTALS", function() end)
+        end
+    end)
+
 elseif locationsConfig == nil then
     errorLog("ERROR: Postals plugin is loaded, but required locations plugin is not. This plugin will not function correctly!")
     pluginConfig.enabled = false
