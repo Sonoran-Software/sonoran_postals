@@ -58,7 +58,12 @@ if pluginConfig.enabled and locationsConfig ~= nil then
     registerApiType("SET_POSTALS", "general")
 
     CreateThread(function()
-        Wait(1000)
+        while Config.apiVersion == -1 do
+            Wait(1000)
+        end
+        if not (Config.apiSendEnabled or Config.apiVersion < 3) then
+            return
+        end
         local postalFile = nil
         if pluginConfig.useCustomPostalCodeFile ~= "" and pluginConfig.useCustomPostalCodeFile ~= nil then
             postalFile = LoadResourceFile(GetCurrentResourceName(), ("plugins/postals/%s"):format(pluginConfig.useCustomPostalCodeFile))
