@@ -61,7 +61,7 @@ if pluginConfig.enabled and locationsConfig ~= nil then
         while Config.apiVersion == -1 do
             Wait(1000)
         end
-        if not (Config.apiSendEnabled or Config.apiVersion < 4) then
+        if Config.apiVersion < 4 or not Config.apiSendEnabled then
             return
         end
         local postalFile = nil
