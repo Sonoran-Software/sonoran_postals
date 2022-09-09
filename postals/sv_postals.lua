@@ -76,6 +76,12 @@ CreateThread(function()
                 else
                     postalFile = LoadResourceFile(pluginConfig.nearestPostalResourceName, GetResourceMetadata(
                         pluginConfig.nearestPostalResourceName, "postal_file"))
+                end
+                if postalFile == nil then
+                    errorLog("Failed to open postals file for reading.")
+                else
+                    performApiRequest(postalFile, "SET_POSTALS", function()
+                    end)
                     postals = json.decode(postalFile)
                     for i, postal in ipairs(postals) do
                         postals[i] = {
@@ -83,12 +89,6 @@ CreateThread(function()
                             code = postal.code
                         }
                     end
-                end
-                if postalFile == nil then
-                    errorLog("Failed to open postals file for reading.")
-                else
-                    performApiRequest(postalFile, "SET_POSTALS", function()
-                    end)
                 end
             end)
 
