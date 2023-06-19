@@ -52,7 +52,6 @@ CreateThread(function()
 			end
 			local function sendPostalData()
 				local postal = getNearestPostal()
-				print('sending postal ' .. tostring(postal))
 				if postal ~= nil and postal ~= lastPostal then
 					TriggerServerEvent('cadClientPostal', postal)
 					lastPostal = postal
